@@ -1,6 +1,6 @@
 /**
 Exercise One - Pong game
-Elisha Rodil 
+Elisha 
 This is a template. You must fill in the title,
 author, and this description to match your project!
 */
@@ -39,19 +39,19 @@ function setup() {
 Description of draw()
 */
 function draw() {
-    background('#ebecf0'); //add a background color to the canvas = black
+    background('#FF10F0'); //add a background color to the canvas = black
 
     //paddles + its functions
-    fill(0);
-    rect(50, mouseY, 20, 100);
-    rect(935, mouseY, 20, 100);
+    fill('0');
+    rect(50, mouseY, 15, 100);
+    rect(935, mouseY, 15, 100);
 
     //the ball feature of the game
     //background(230, 230, 250); //add a color to the ball = lavender
     //ellipse(20, 20, 40, 40); //create the ball using ellipse
     noStroke();
-    fill(0);
-    ellipse(x, y, r*2, r*2);
+    fill('0');
+    ellipse(x, y, r, r); //create a ball 
     x += speedX;
     y += speedY;
     if (x > width - r || x < r) {
@@ -62,8 +62,11 @@ function draw() {
     }
 
     //scores
-    fill(0);
+    fill('0');
     textSize(24);
     text("Score: " + score, 20 , 40);
     //text(playerScore, 140,40);
+
+    //ball bounces off the paddles
+
 }
