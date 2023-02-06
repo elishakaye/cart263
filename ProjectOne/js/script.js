@@ -14,71 +14,177 @@ Description of preload
 function preload() {
 
 }
+    
+let particles = []; //create an array 
+let elisha = [];
 
-// this class describes the properties of a single particle.
-class Particle {
-    // setting the co-ordinates, radius and the
-    // speed of a particle in both the co-ordinates axes.
-      constructor(){
-        this.x = random(0,width);
-        this.y = random(0,height);
-        this.r = random(1,8);
-        this.xSpeed = random(-2,2);
-        this.ySpeed = random(-1,1.5);
-      }
-    
-    // creation of a particle.
-      createParticle() {
-        noStroke();
-        fill('rgba(200,169,169,0.5)');
-        circle(this.x,this.y,this.r);
-      }
-    
-    // setting the particle in motion.
-      moveParticle() {
-        if(this.x < 0 || this.x > width)
-          this.xSpeed*=-1;
-        if(this.y < 0 || this.y > height)
-          this.ySpeed*=-1;
-        this.x+=this.xSpeed;
-        this.y+=this.ySpeed;
-      }
-    
-    // this function creates the connections(lines)
-    // between particles which are less than a certain distance apart
-      joinParticles(particles) {
-        particles.forEach(element =>{
-          let dis = dist(this.x,this.y,element.x,element.y);
-          if(dis<85) {
-            stroke('rgba(255,255,255,0.04)');
-            line(this.x,this.y,element.x,element.y);
-          }
-        });
-      }
-    }
-    
-// an array to add multiple particles
-    let particles = [];
-    
 /**
 Description of setup
-*/    
-    function setup() {
-      createCanvas(900, 700);
-      for(let i = 0;i<width/10;i++){
-        particles.push(new Particle());
-      }
-    }
+*/ 
+function setup() {
+    createCanvas(window.innerWidth, window.innerHeight); //create a canvas the size of the screen
     
+    const particlesLength = Math.floor(window.innerWidth / 9);
+    
+    for (let i = 0; i < particlesLength; i++) {
+        particles.push(new Particle());     
+    }
+    for (let i = 0; i < particlesLength; i++) {
+        elisha.push(new Triangle());     
+    }
+}
+
 /**
-Description of draw()
+Description of draw
 */
-    function draw() {
-      background('#0f0f0f');
-      for(let i = 0;i<particles.length;i++) {
-        particles[i].createParticle();
-        particles[i].moveParticle();
-        particles[i].joinParticles(particles.slice(i));
+function draw() {
+    background(0);
+    particles.forEach((p, index) => {
+        p.update();
+        p.draw();
+        p.checkParticles(particles.slice(index));
+        p.repel();
+    })
+    elisha.forEach((ps, index) => {
+        ps.update();
+        ps.display();
+        ps.checkParticles(particles.slice(index));
+        ps.repel();
+    })
+}
+
+    
+function windowResized() {
+    resizeCanvas(windowWidth, windowHeight);
+}
+
+//create a class particle that will move on the X and Y axis
+//vector = an entity that has both magnitude and direction
+class Particle {
+    constructor() {
+        //position of the particle appear at random places across the screen
+        this.pos = createVector(random(width), random(height));
+        //velocity of the particle 
+        this.vel = createVector(random(-1, 1), random(-1, 1));
+        //radius of the particle
+        this.size = random(5, 25);
+
+        //this.r = random(0, 255);
+        //this.g = random(0, 255);
+        //this.b = random(0, 255);
+        this.c = color(random(255), random(255), random(255));
+    }
+
+    //Update movement by adding velocity
+    update(){
+        this.pos.add(this.vel);
+        this.edges();
+    }
+
+    //draw single particle
+    draw() {
+        noStroke();
+        fill(this.c)
+        //drawingContext.filter = 'blur('+String(random(20))+'px)'; 
+        circle(this.pos.x, this.pos.y, this.size);
+        // triangle(this.pos.x, this.pos.y, this.pos.x+10, this.pos.y+10, this.pos.x-10, this.pos.y+10);
+    }
+
+    //Detect edges
+    /**if X or Y position of the particle is less than < 0 OR X or Y position
+    of particle is less than < width or < height of canvas respectively, 
+    then multiply -1 with velocity X or Y vector respectively.*/
+    edges() {
+        if(this.pos.x < 0 || this.pos.x > width) {
+            this.vel.x *= -1;
+        }
+        if(this.pos.y < 0 || this.pos.y > height) {
+            this.vel.y *= -1;
+        }
+    }
+
+    // Connect particles
+    checkParticles(particles) {
+        particles.forEach(particle => {
+            const d = dist(this.pos.x, this.pos.y, particle.pos.x, particle.pos.y);
+            if (d < 200) {
+                //stroke(this.r,this.g, this.b);
+                line(this.pos.x, this.pos.y, particle.pos.x, particle.pos.y)
+            }
+        });
+    };
+
+    //this function will make particles move away from the mouse cursor, creating a hover effect
+    repel() {
+        this.pos.x = constrain(this.pos.x, 0, width);
+        this.pos.y = constrain(this.pos.y, 0, height);
+        let distance = dist(this.pos.x, this.pos.y, mouseX, mouseY);
+        let mouse = createVector(mouseX, mouseY);
+        let difference = p5.Vector.sub(mouse, this.pos);
+        difference.setMag(10);
+
+        //If the mouse comes near a particle, it moves away
+        if (distance < 200) {
+          this.pos.sub(difference);
+        }
       }
 }
 
+class Triangle{
+    constructor(){
+           //position of the particle appear at random places across the screen
+           this.pos = createVector(random(width), random(height));
+           //velocity of the particle 
+           this.vel = createVector(random(-1, 1), random(-1, 1));
+           //radius of the particle
+           this.size = random(5, 15);
+   
+           //this.r = random(0, 255);
+           //this.g = random(0, 255);
+           //this.b = random(0, 255);
+           this.c = color(random(255), random(255), random(255));
+    }
+    display(){
+        noStroke();
+        fill(this.c)
+        triangle(this.pos.x, this.pos.y, this.pos.x+10, this.pos.y+10, this.pos.x-10, this.pos.y+10);
+    }
+    update(){
+        this.pos.add(this.vel);
+        this.edges();
+    }
+    edges() {
+        if(this.pos.x < 0 || this.pos.x > width) {
+            this.vel.x *= -1;
+        }
+        if(this.pos.y < 0 || this.pos.y > height) {
+            this.vel.y *= -1;
+        }
+    }
+
+    // Connect particles
+    checkParticles(particles) {
+        particles.forEach(particle => {
+            const d = dist(this.pos.x, this.pos.y, particle.pos.x, particle.pos.y);
+            if (d < 200) {
+                //stroke(this.r,this.g, this.b);
+                line(this.pos.x, this.pos.y, particle.pos.x, particle.pos.y)
+            }
+        });
+    };
+
+    //this function will make particles move away from the mouse cursor, creating a hover effect
+    repel() {
+        this.pos.x = constrain(this.pos.x, 0, width);
+        this.pos.y = constrain(this.pos.y, 0, height);
+        let distance = dist(this.pos.x, this.pos.y, mouseX, mouseY);
+        let mouse = createVector(mouseX, mouseY);
+        let difference = p5.Vector.sub(mouse, this.pos);
+        difference.setMag(10);
+
+        //If the mouse comes near a particle, it moves away
+        if (distance < 200) {
+          this.pos.sub(difference);
+        }
+      }
+}
