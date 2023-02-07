@@ -10,3 +10,8 @@ out of the screen (or with the possible updates = to stick to the cursor). The c
 movement of the cursor attempting to push away the particles somewhat reflects to the theme. 
 
 ___
+
+It's features:
+- different colors (random hues)
+- shapes (circles, triangles, squares)
+- interactive (to move away from the cursor or being pushed)
