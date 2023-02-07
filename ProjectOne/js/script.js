@@ -1,5 +1,5 @@
 /**
-Project One: Particles (Doesn't leave me alone)
+Project One: Particles
 Elisha
 This is a template. You must fill in the title,
 author, and this description to match your project!
@@ -22,7 +22,9 @@ let elisha = [];
 Description of setup
 */ 
 function setup() {
-    createCanvas(window.innerWidth, window.innerHeight); //create a canvas the size of the screen
+    
+    //create a canvas the size of the screen
+    createCanvas(window.innerWidth, window.innerHeight); 
     
     const particlesLength = Math.floor(window.innerWidth / 9);
     
@@ -67,7 +69,7 @@ class Particle {
         //velocity of the particle 
         this.vel = createVector(random(-1, 1), random(-1, 1));
         //radius of the particle
-        this.size = random(5, 25);
+        this.size = random(5, 20);
 
         //this.r = random(0, 255);
         //this.g = random(0, 255);
@@ -84,10 +86,9 @@ class Particle {
     //draw single particle
     draw() {
         noStroke();
-        fill(this.c)
-        //drawingContext.filter = 'blur('+String(random(20))+'px)'; 
+        fill(this.c) 
+        //drawingContext.filter = 'blur(10px)';
         circle(this.pos.x, this.pos.y, this.size);
-        // triangle(this.pos.x, this.pos.y, this.pos.x+10, this.pos.y+10, this.pos.x-10, this.pos.y+10);
     }
 
     //Detect edges
