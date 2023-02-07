@@ -31,9 +31,9 @@ function setup() {
     for (let i = 0; i < particlesLength; i++) {
         particles.push(new Particle());     
     }
-    for (let i = 0; i < particlesLength; i++) {
-        others.push(new More());     
-    }
+    // for (let i = 0; i < particlesLength; i++) {
+    //     others.push(new More());     
+    // }
 }
 
 /**
@@ -47,12 +47,12 @@ function draw() {
         //p.checkParticles(particles.slice(index));
         p.repel();
     })
-    others.forEach((ps, index) => {
-        ps.update();
-        ps.display();
-        //ps.checkParticles(particles.slice(index));
-        ps.repel();
-    })
+    // others.forEach((ps, index) => {
+    //     ps.update();
+    //     ps.display();
+    //     //ps.checkParticles(particles.slice(index));
+    //     ps.repel();
+    // })
 }
 
     
@@ -130,61 +130,61 @@ class Particle {
       }
 }
 
-class More{
-    constructor(){
-           //position of the particle appear at random places across the screen
-           this.pos = createVector(random(width), random(height));
-           //velocity of the particle 
-           this.vel = createVector(random(-1, 1), random(-1, 1));
-           //radius of the particle
-           this.size = random(5, 15);
+// class More{
+//     constructor(){
+//            //position of the particle appear at random places across the screen
+//            this.pos = createVector(random(width), random(height));
+//            //velocity of the particle 
+//            this.vel = createVector(random(-1, 1), random(-1, 1));
+//            //radius of the particle
+//            this.size = random(5, 15);
    
-           //this.r = random(0, 255);
-           //this.g = random(0, 255);
-           //this.b = random(0, 255);
-           this.c = color(random(255), random(255), random(255));
-    }
-    display(){
-        noStroke();
-        fill(this.c)
-        triangle(this.pos.x, this.pos.y, this.pos.x+10, this.pos.y+10, this.pos.x-10, this.pos.y+10);
-    }
-    update(){
-        this.pos.add(this.vel);
-        this.edges();
-    }
-    edges() {
-        if(this.pos.x < 0 || this.pos.x > width) {
-            this.vel.x *= -1;
-        }
-        if(this.pos.y < 0 || this.pos.y > height) {
-            this.vel.y *= -1;
-        }
-    }
+//            //this.r = random(0, 255);
+//            //this.g = random(0, 255);
+//            //this.b = random(0, 255);
+//            this.c = color(random(255), random(255), random(255));
+//     }
+//     display(){
+//         noStroke();
+//         fill(this.c)
+//         triangle(this.pos.x, this.pos.y, this.pos.x+10, this.pos.y+10, this.pos.x-10, this.pos.y+10);
+//     }
+//     update(){
+//         this.pos.add(this.vel);
+//         this.edges();
+//     }
+//     edges() {
+//         if(this.pos.x < 0 || this.pos.x > width) {
+//             this.vel.x *= -1;
+//         }
+//         if(this.pos.y < 0 || this.pos.y > height) {
+//             this.vel.y *= -1;
+//         }
+//     }
 
-    // Connect particles
-    checkParticles(particles) {
-        particles.forEach(particle => {
-            const d = dist(this.pos.x, this.pos.y, particle.pos.x, particle.pos.y);
-            if (d < 200) {
-                //stroke(this.r,this.g, this.b);
-                line(this.pos.x, this.pos.y, particle.pos.x, particle.pos.y)
-            }
-        });
-    };
+//     // Connect particles
+//     checkParticles(particles) {
+//         particles.forEach(particle => {
+//             const d = dist(this.pos.x, this.pos.y, particle.pos.x, particle.pos.y);
+//             if (d < 200) {
+//                 //stroke(this.r,this.g, this.b);
+//                 line(this.pos.x, this.pos.y, particle.pos.x, particle.pos.y)
+//             }
+//         });
+//     };
 
-    //this function will make particles move away from the mouse cursor, creating a hover effect
-    repel() {
-        this.pos.x = constrain(this.pos.x, 0, width);
-        this.pos.y = constrain(this.pos.y, 0, height);
-        let distance = dist(this.pos.x, this.pos.y, mouseX, mouseY);
-        let mouse = createVector(mouseX, mouseY);
-        let difference = p5.Vector.sub(mouse, this.pos);
-        difference.setMag(10);
+//     //this function will make particles move away from the mouse cursor, creating a hover effect
+//     repel() {
+//         this.pos.x = constrain(this.pos.x, 0, width);
+//         this.pos.y = constrain(this.pos.y, 0, height);
+//         let distance = dist(this.pos.x, this.pos.y, mouseX, mouseY);
+//         let mouse = createVector(mouseX, mouseY);
+//         let difference = p5.Vector.sub(mouse, this.pos);
+//         difference.setMag(10);
 
-        //If the mouse comes near a particle, it moves away
-        if (distance < 200) {
-          this.pos.sub(difference);
-        }
-      }
-}
+//         //If the mouse comes near a particle, it moves away
+//         if (distance < 200) {
+//           this.pos.sub(difference);
+//         }
+//       }
+// }
