@@ -15,8 +15,8 @@ function preload() {
 
 }
     
-let particles = []; //create an array 
-let elisha = [];
+let particles = []; //create a circle array 
+let others = []; //create a triangle array
 
 /**
 Description of setup
@@ -32,7 +32,7 @@ function setup() {
         particles.push(new Particle());     
     }
     for (let i = 0; i < particlesLength; i++) {
-        elisha.push(new Triangle());     
+        others.push(new More());     
     }
 }
 
@@ -44,13 +44,13 @@ function draw() {
     particles.forEach((p, index) => {
         p.update();
         p.draw();
-        p.checkParticles(particles.slice(index));
+        //p.checkParticles(particles.slice(index));
         p.repel();
     })
-    elisha.forEach((ps, index) => {
+    others.forEach((ps, index) => {
         ps.update();
         ps.display();
-        ps.checkParticles(particles.slice(index));
+        //ps.checkParticles(particles.slice(index));
         ps.repel();
     })
 }
@@ -71,10 +71,7 @@ class Particle {
         //radius of the particle
         this.size = random(5, 20);
 
-        //this.r = random(0, 255);
-        //this.g = random(0, 255);
-        //this.b = random(0, 255);
-        this.c = color(random(255), random(255), random(255));
+        this.c = color(random(255), random(255),random(255));
     }
 
     //Update movement by adding velocity
@@ -107,15 +104,15 @@ class Particle {
     }
 
     // Connect particles
-    checkParticles(particles) {
-        particles.forEach(particle => {
-            const d = dist(this.pos.x, this.pos.y, particle.pos.x, particle.pos.y);
-            if (d < 200) {
-                //stroke(this.c);
-                line(this.pos.x, this.pos.y, particle.pos.x, particle.pos.y)
-            }
-        });
-    };
+    // checkParticles(particles) {
+    //     particles.forEach(particle => {
+    //         const d = dist(this.pos.x, this.pos.y, particle.pos.x, particle.pos.y);
+    //         // if (d < 200) {
+    //         //     //stroke(this.c);
+    //         //     line(this.pos.x, this.pos.y, particle.pos.x, particle.pos.y)
+    //         // }
+    //     });
+    // };
 
     //this function will make particles move away from the mouse cursor, creating a hover effect
     repel() {
@@ -133,7 +130,7 @@ class Particle {
       }
 }
 
-class Triangle{
+class More{
     constructor(){
            //position of the particle appear at random places across the screen
            this.pos = createVector(random(width), random(height));
