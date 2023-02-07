@@ -78,23 +78,25 @@ class Particle {
     }
 
     //Update movement by adding velocity
+    /**will add velocity vector into position vector,
+    plus it will call another function called edges() for collision detection.*/
     update(){
         this.pos.add(this.vel);
         this.edges();
     }
 
-    //draw single particle
+    //draw particle
     draw() {
         noStroke();
-        fill(this.c) 
+        fill(this.c); 
         //drawingContext.filter = 'blur(10px)';
         circle(this.pos.x, this.pos.y, this.size);
     }
 
     //Detect edges
     /**if X or Y position of the particle is less than < 0 OR X or Y position
-    of particle is less than < width or < height of canvas respectively, 
-    then multiply -1 with velocity X or Y vector respectively.*/
+    of particle is less than < width or < height of canvas, 
+    then multiply -1 with velocity X or Y vector.*/
     edges() {
         if(this.pos.x < 0 || this.pos.x > width) {
             this.vel.x *= -1;
@@ -109,7 +111,7 @@ class Particle {
         particles.forEach(particle => {
             const d = dist(this.pos.x, this.pos.y, particle.pos.x, particle.pos.y);
             if (d < 200) {
-                //stroke(this.r,this.g, this.b);
+                //stroke(this.c);
                 line(this.pos.x, this.pos.y, particle.pos.x, particle.pos.y)
             }
         });
