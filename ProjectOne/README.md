@@ -15,3 +15,6 @@ It's features:
 - different colors (random hues)
 - shapes (circles, triangles, squares)
 - interactive (to move away from the cursor or being pushed)
+
+[here's the link for the .forEach code I took inspiration from](https://p5js.org/examples/simulate-particles.html)
+
