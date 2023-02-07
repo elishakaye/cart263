@@ -8,3 +8,5 @@ to create a particle design while using the personality I chose "Doesn't leave y
 It is an interactive project, so the goal is to, or attempt to move each of the particle
 out of the screen (or with the possible updates = to stick to the cursor). The constant
 movement of the cursor attempting to push away the particles somewhat reflects to the theme. 
+
+___
