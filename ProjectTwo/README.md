@@ -20,5 +20,7 @@ It's features:
 - with a description on the side
 - two columns, and over 1000 rows of artists
 
+___
+
 [here's the link from Jer Thorp's inspired project](https://www.jerthorp.com/avengersassembled)
-[here's the link to resources where I found some type of codes, that we may have not seen in class]()
+[link for the inspiration of the codes](https://www.youtube.com/watch?v=u-RiEAQsXlw&t=937s)
