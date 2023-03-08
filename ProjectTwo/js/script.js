@@ -53,9 +53,20 @@ function setup() {
   }
 }
 
-// /**
-// Description of draw()
-// */
-// function draw() {
+/**
+Description of draw()
+*/
+let s = 'The Top 50 songs of 2021';
 
-// }
+function draw() {
+  // Text wraps within text box
+  fill(0);
+  textSize(50);
+  text(s, 30, 30, 400, 300);
+
+  //description/info
+  textSize(18);
+  fill(50);
+  text('These are the top 50 songs in 2021 using Spotify.', 30, 200);
+  text('Each stroke/line represents an artist + their song that is the most played in that year. Here is the list of the top artist of that year:', 30, 219, 400, 300);
+}
